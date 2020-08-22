@@ -1,0 +1,69 @@
+#Code by Aditya Biyani
+#aka Dousmortis
+#tkinter for dialog box pop-up while time module for delay 
+import tkinter as tk
+import time
+import random 
+from tkinter import simpledialog
+# Function for play game
+def game(op,lst):
+    print("So lets start game\n************************* Begin ********************************\n")
+    t=op
+    user_win,bot_win=0,0
+    while(True):
+        time.sleep(0.5)
+        print("1. Scissors\n2. Rock\n3.Paper")
+        ch=int(input())
+        bot=random.choice([1,2,0])+1
+        k=whowin(bot,ch,user_win,bot_win)
+        if k=="You lose":
+            bot_win+=1
+        elif k=="You Win":
+            user_win+=1
+        print("Computer={}\t\tYou={}\n\t\t{}".format(lst[bot-1],lst[ch-1],k))
+        print(user_win,bot_win)
+        if user_win==3 or bot_win==3:
+            break
+    time.sleep(1)
+    if user_win==3 and bot_win==0:
+        print("You really are a \"Pro\" warrior")
+    elif user_win==3 and bot_win==2:
+        print("Ohhh You win by skin of a tooth")
+        time.sleep(2)
+    # if user want to play again    
+    print("Are you want to play again:-1. Yes\n2. No")
+    return int(input())
+              
+# Function to find out who win 
+def whowin(bot,ch,user_win,bot_win):
+    if bot>ch and bot+ch!=4:
+        return "You lose"
+    elif bot==ch:
+        return "Tie"
+    elif bot+ch==4:
+        if bot<ch:
+            return "You lose"
+        else:
+            return "You Win"
+    else:
+        return "You Win"
+# Main function    
+lst=["Scissors","Rock","Paper"]
+y="Welcome ! To the arena for fiercing fighting!"
+print(y)
+n=0
+op=3
+time.sleep(2)
+print("So Player what should we call you =")
+time.sleep(3)
+ROOT = tk.Tk()
+ROOT.withdraw()
+user = simpledialog.askstring(title="Test",
+                                  prompt="What's your Name?:")
+print("So",user,"! are you ready for  fight for honour...")
+time.sleep(2)
+print("Rules:-\n1. Scissors will win over Rock\n2.Rock win over scissors\n3.Paper will win over Rock\n4. The first one to get \"3\" wins wins the game\n\n")
+time.sleep(4)
+while(n!=2):
+    n=game(op,lst)
+print("Thank you ! Player.")  
